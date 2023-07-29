@@ -1,24 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { db, storage } from './firebase';
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { doc, onSnapshot } from 'firebase/firestore';
 
 function App() {
-  return (
+  const [posts, setPosts] = useState<any>([]);
+  const [dataLoaded, setDataLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    //データベースからデータを取得する。
+    const postData = collection(db, "posts");
+    getDocs(postData).then((snapShot) => {
+      // console.log(snapShot.docs.map((doc) => ({ ...doc.data() })));
+      setPosts(snapShot.docs.map((doc) => ({ ...doc.data() })));
+      setDataLoaded(true); //データ取得完了したことをフラグで示す
+    });
+
+    onSnapshot(postData, (post) => {
+      setPosts(post.docs.map((doc) => ({...doc.data() })));
+    });
+  }, []);
+
+  if(!dataLoaded) {
+    // データがまだ取得されていない場合はローディング画面を表示
+    return <div>Loading...</div>;
+  }
+
+  return(
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        {posts.map((post:any) => (
+          <div key={post.title}> 
+            <h1>{post.title}</h1>
+            <p>{post.text}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
