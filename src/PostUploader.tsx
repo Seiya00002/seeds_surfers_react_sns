@@ -13,12 +13,8 @@ const PostUploader = () => {
     
 
     const OnFileUploadToFirebase = (e:any) => {
-        // console.log(e.target.files[0].name);
         const file = e.target.files[0];
         const storageRef = ref(storage, 'image/' + file.name);
-        // uploadBytes(storageRef, file).then((snapshot) => {
-        //     console.log('Uploaded a blob or file!');
-        //   });
         const uploadImage = uploadBytesResumable(storageRef, file);
 
         uploadImage.on(
@@ -26,7 +22,6 @@ const PostUploader = () => {
             (snapshot) => {
               setLoading(true);
             },
-
             (error:any) => {
               console.log(error);
             }, 
@@ -35,7 +30,6 @@ const PostUploader = () => {
               setUploaded(true);
             }
         );
-
     };
 
   return (
@@ -75,19 +69,12 @@ const PostUploader = () => {
         onChange={OnFileUploadToFirebase}
         />
       </Button>
-    </div>
+      </div>
         )
         }
-        </>
-        
-      )}
-    
-    
-    </>
-
-
-
-    
+        </>     
+      )}   
+    </>    
   );
 };
 
