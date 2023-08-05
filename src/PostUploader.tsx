@@ -3,17 +3,18 @@ import ImageLogo from "./image.svg";
 import "./PostUploader.css";
 import { Button } from '@mui/material';
 import { db, storage } from "./firebase";
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import Post from "./Post";
 
 
-
-const PostUploader = () => {
+function PostUploader() {
   const [loading, setLoading] = useState<boolean>(false);
   const [isUpLoaded, setUploaded] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
+  const [fileUrl, setFileUrl] = useState<any>("");
 
   const OnFileUploadToFirebase = (e:any) => {
         const file = e.target.files[0];
@@ -22,22 +23,31 @@ const PostUploader = () => {
 
         setLoading(true);
 
-        uploadImage.then(() => {
+        uploadImage.then((snapshot) => {
           setLoading(false);
           setUploaded(true);
-        }).catch((error: any) => {
+          return getDownloadURL(snapshot.ref);
+        })
+        .then((url) => {
+          setFileUrl(url);
+        })
+        .catch((error: any) => {
           setLoading(false);
+          console.error("画像のアップロードに失敗しました。:", error);
         });
   };
 
   const onTextUploadToFirebase = () => {
     addDoc(collection(db, "posts"), {
       text:text,
-      timestamp: serverTimestamp()
+      imageUrl:fileUrl,
+      timestamp: serverTimestamp(),
     })
     .then(()=>{
       console.log("投稿が完了しました！");
       setText("");
+      setFileUrl("");
+      setUploaded(false);
     })
     .catch((error: any) => {
       console.error("エラーが発生しました。:",error);
@@ -54,11 +64,12 @@ const PostUploader = () => {
             <>
               <div className="outerBox">
                 <h2>画像アップロード完了しました！</h2>
+
                 <form id="post">
                   <label>
                     <input 
                       type="text"
-                      placeholder="投稿内容を書く..."
+                      placeholder="報告や疑問を書く..."
                       size={50}
                       maxLength={500}
                       value={text}
@@ -77,10 +88,10 @@ const PostUploader = () => {
             ) : (
               <div className="outerBox">
                 <div className="title">
-                  <h2>投稿アップローダー</h2>
-                  <p>JpegかPngの画像ファイル</p>
+                  <h2>今日の調子はどう？</h2>
+                  <p>JpegかPngの写真ファイル</p>
                 </div>
-                <div className="imageUplodeBox">
+                {/* <div className="imageUplodeBox">
                   <div className="imageLogoAndText">
                     <img src={ImageLogo} alt="imagelogo" />
                     <p>ここにドラッグ＆ドロップしてね</p>
@@ -92,10 +103,10 @@ const PostUploader = () => {
                   accept=".png, .jpeg, .jpg"
                   onChange={OnFileUploadToFirebase}
                   />
-                </div>
-                <p>または</p>
+                </div> */}
+                {/* <p>または</p> */}
                 <Button variant="contained">
-                  ファイルを選択
+                  写真を選択
                   <input 
                   className="imageUploadInput" 
                   type="file"
@@ -103,7 +114,26 @@ const PostUploader = () => {
                   onChange={OnFileUploadToFirebase}
                   />
                 </Button>
-                
+                <form id="post">
+                  <label>
+                    <input 
+                      type="text"
+                      placeholder="報告や疑問を書く..."
+                      className="textPost"
+                      size={50}
+                      maxLength={500}
+                      value={text}
+                      onChange={e => setText(e.target.value)}
+                    />
+                  </label>
+                  </form>
+                  <input 
+                    type="button" 
+                    className="textUploadInput"
+                    form="post" 
+                    value="Post"
+                    onClick={onTextUploadToFirebase}
+                  />
               </div>
             )
           }
