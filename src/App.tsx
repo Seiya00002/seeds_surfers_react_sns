@@ -1,43 +1,35 @@
 import React from 'react';
 import './App.css';
 import { db, storage } from './firebase';
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { useEffect, useState, useRef } from "react";
+import { collection, query, orderBy, getDocs, QuerySnapshot } from "firebase/firestore";
 import { doc, onSnapshot } from 'firebase/firestore';
+import Post from './Post';
+import PostUploader from './PostUploader';
 
 function App() {
   const [posts, setPosts] = useState<any>([]);
-  const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    //データベースからデータを取得する。
-    const postData = collection(db, "posts");
-    getDocs(postData).then((snapShot) => {
-      // console.log(snapShot.docs.map((doc) => ({ ...doc.data() })));
-      setPosts(snapShot.docs.map((doc) => ({ ...doc.data() })));
-      setDataLoaded(true); //データ取得完了したことをフラグで示す
+    const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
+    // リアルタイム表示
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const postsData = querySnapshot.docs.map((doc) => doc.data());
+      setPosts(postsData);
     });
 
-    onSnapshot(postData, (post) => {
-      setPosts(post.docs.map((doc) => ({...doc.data() })));
-    });
+    return () => {
+      // コンポーネントがアンマウントされる際にunsubscribeを行う
+      unsubscribe();
+    };
   }, []);
-
-  if(!dataLoaded) {
-    // データがまだ取得されていない場合はローディング画面を表示
-    return <div>Loading...</div>;
-  }
 
   return(
     <div className="App">
-      <div>
-        {posts.map((post:any) => (
-          <div key={post.title}> 
-            <h1>{post.title}</h1>
-            <p>{post.text}</p>
-          </div>
-        ))}
-      </div>
+      <PostUploader />
+      {posts.map((post:any) => (
+        <Post key={post.timestamp} post={post} />
+      ))}
     </div>
   );
 }
