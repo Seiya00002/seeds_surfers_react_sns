@@ -2,7 +2,7 @@ import React, { useState}  from "react";
 import ImageLogo from "./image.svg";
 import "./PostUploader.css";
 import { Button } from '@mui/material';
-import { db, storage } from "./firebase";
+import { db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import firebase from "firebase/app";
 import "firebase/firestore";

@@ -1,7 +1,7 @@
 import React from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { db, storage } from "./firebase";
+import { db, storage } from "../firebase";
 import "./Post.css";
 
 const Post: React.FC<{ post: any }> = ( {post} ) => {

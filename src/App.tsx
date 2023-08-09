@@ -4,8 +4,8 @@ import { db, storage } from './firebase';
 import { useEffect, useState, useRef } from "react";
 import { collection, query, orderBy, getDocs, QuerySnapshot } from "firebase/firestore";
 import { doc, onSnapshot } from 'firebase/firestore';
-import Post from './Post';
-import PostUploader from './PostUploader';
+import Post from './Components/Post';
+import PostUploader from './Components/PostUploader';
 
 function App() {
   const [posts, setPosts] = useState<any>([]);
