@@ -1,19 +1,18 @@
-import { signInWithPopup, getAuth, onAuthStateChanged, User, GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup, User } from "firebase/auth";
 import React from 'react';
-import { auth, provider } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-// import { AuthContext } from "./AuthContext";
-import { useState, useEffect, useContext } from 'react';
+import { auth, provider } from './firebase';
 import './Login.css';
  
+
 function Login() {
     const [user] = useAuthState(auth);
 
-    return(
+    return (
         <div className="userInfo">
             {user ? (
                 <>
-                    <UserInfo />
+                    <UserInfo user={user} />
                     <SignOutButton />
                 </>
             ) : (
@@ -25,60 +24,38 @@ function Login() {
 
 export default Login;
 
-// サインインボタン
 function SignInButton() {
-
     const signInWithGoogle = () => {
-        // Firebaseを使ってサインイン
         signInWithPopup(auth, provider);
     };
 
-    return(
+    return (
         <button onClick={signInWithGoogle}>
             <p>サインイン</p>
         </button>
-    )
+    );
 }
 
-// サインアウトボタン
 function SignOutButton() {
-    return(
+    return (
         <button onClick={() => auth.signOut()}>
             <p>サインアウト</p>
         </button>
-    )
+    );
 }
 
-function UserInfo(){
+function UserInfo({ user }: {user: User}) {
+    const { displayName, photoURL } = user;
 
-    const [ userInfo, setUserInfo] = useState<User | null>(null);
-
-    useEffect(() => {
-        const unsubscribeAuthStateChanged = onAuthStateChanged(auth, (user) => {
-            if(user) {
-                setUserInfo(user);
-            } else {
-                setUserInfo(null)
-            }
-        });
-
-        return() => unsubscribeAuthStateChanged();
-    },[]);
-
-    if(userInfo){
-        const { displayName, photoURL } = userInfo;
-    
-        return(
-            <div>
-                {photoURL && <img 
-                src={photoURL} 
-                alt="User Icon" 
-                className="userIcon"
-                />}
-                <p>{displayName}</p>
-            </div>
-        )
-    } else {
-        return null;
-    }
+    return (
+        <div>
+            {photoURL && (
+                <img 
+                    src={photoURL} 
+                    alt="User Icon" 
+                    className="userIcon"
+                />
+            )}
+        </div>
+    );
 }
