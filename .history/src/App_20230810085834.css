@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-flow: column;  
+}
+
+p {
+  font: 20px;
+}

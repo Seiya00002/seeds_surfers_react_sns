@@ -1,0 +1,10 @@
+.header {
+    height: 70px;
+    background-color: rgba(30, 160, 47, 0.449);
+}
+
+.header h2 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}

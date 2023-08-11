@@ -1,0 +1,9 @@
+.postImage {
+    width: 400px;
+    height: 400px;
+}
+
+.postOuterBox {
+    margin: 10px 0;
+    border: 2rem solid;
+}
