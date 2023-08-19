@@ -14,7 +14,9 @@ function App() {
     const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
     // リアルタイム表示
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const postsData = querySnapshot.docs.map((doc) => doc.data());
+      const postsData = querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      });
       setPosts(postsData);
     });
 
@@ -24,9 +26,11 @@ function App() {
     };
   }, []);
 
+  console.log("Posts in App:", posts);
+
   return(
     <div className="App">
-      <PostUploader />
+      <PostUploader setPosts={setPosts} />
       {posts.map((post:any) => (
         <Post key={post.timestamp} post={post} />
       ))}

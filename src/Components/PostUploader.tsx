@@ -5,12 +5,15 @@ import { db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp} from "firebase/firestore";
 import Post from "./Post";
 import Login from "./Login";
 
+interface PostUploaderProps {
+  setPosts: React.Dispatch<React.SetStateAction<any[]>>;
+}
 
-function PostUploader() {
+function PostUploader({ setPosts }: PostUploaderProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [isUpLoaded, setUploaded] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
@@ -43,16 +46,33 @@ function PostUploader() {
       imageUrl:fileUrl,
       timestamp: serverTimestamp(),
     })
-    .then(()=>{
+    .then((docRef)=>{
       console.log("投稿が完了しました！");
+
+      const newDocId = docRef.id;
+
       setText("");
       setFileUrl("");
       setUploaded(false);
+      
+      // Post コンポーネントに渡すデータに新しいドキュメントIDを追加
+      setPosts((prevPosts) => [
+        ...prevPosts,
+        {
+          text: text,
+          imageUrl: fileUrl,
+          timestamp: serverTimestamp(),
+          id: newDocId,
+        },
+      ]);
+
+      console.log("新しく追加されたドミュメントのID:", newDocId);
     })
     .catch((error: any) => {
       console.error("エラーが発生しました。:",error);
     });
   };
+  
 
   return (
     <>
