@@ -8,8 +8,9 @@ import { storage } from "../firebase";
 import "./Post.css";
 
 const Post: React.FC<{ post: any }> = ( {post} ) => {
-    const { title, text, imageUrl} = post;
-    const postId = post.id;
+    const id = post?.id || "";
+    console.log("Post ID in Post component:", id);
+    const { text, imageUrl} = post;
 
     const [editing, setEditing] = useState<boolean>(false);
     const [editedText, setEditedText] = useState<string>(text);
@@ -20,7 +21,7 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
 
     const saveEditedPost = async () => {
         try {
-            await updateDoc(doc(db, "posts", post.id), {
+            await updateDoc(doc(db, "posts", id), {
                 text: editedText,
             });
 
@@ -32,9 +33,9 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
 
     const deletePost = async () => {
         try {
-            console.log("post.id:",post.id );
+            console.log("post.id:", id );
             // Firestoreのデータを削除
-            await deleteDoc(doc(db, "posts", post.id));
+            await deleteDoc(doc(db, "posts", id));
     
             // 画像が存在する場合、ストレージファイルを削除
             if (imageUrl) {
