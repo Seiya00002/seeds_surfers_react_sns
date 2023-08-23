@@ -1,7 +1,7 @@
 import React, { useState}  from "react";
 import "./PostUploader.css";
 import { Button } from '@mui/material';
-import { db, storage, auth } from "../firebase";
+import { db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -41,18 +41,10 @@ function PostUploader({ setPosts }: PostUploaderProps) {
   };
 
   const onTextUploadToFirebase = () => {
-    const user = auth.currentUser;
-
-    if(!user) {
-      window.alert("投稿にはログインが必要です。");
-      return;
-    }
-
     addDoc(collection(db, "posts"), {
       text:text,
       imageUrl:fileUrl,
       timestamp: serverTimestamp(),
-      userId: user.uid,
     })
     .then((docRef)=>{
       console.log("投稿が完了しました！");
@@ -63,14 +55,13 @@ function PostUploader({ setPosts }: PostUploaderProps) {
       setFileUrl("");
       setUploaded(false);
       
-      // Post コンポーネントに渡すデータ
+      // Post コンポーネントに渡すデータに新しいドキュメントIDを追加
       setPosts((prevPosts) => [
         ...prevPosts,
         {
           text: text,
           imageUrl: fileUrl,
           timestamp: serverTimestamp(),
-          userId: user.uid,
           id: newDocId,
         },
       ]);

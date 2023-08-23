@@ -1,34 +1,28 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { addDoc, collection, serverTimestamp, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { deleteObject } from "firebase/storage";
-import { AuthContext } from "../AuthContext";
 import { db } from "../firebase";
 import { storage } from "../firebase";
 import "./Post.css";
 
-const Post: React.FC<{ post: any }> = ( {post} ) => {
-    const id = post?.id || "";
-    const { text, imageUrl, userId } = post;
+const Post: React.FC<{ post: any }> = ( props ) => {
+    const { title, text, imageUrl} = props.post;
+    const postId = props.post.id;
 
-    console.log("userId:", userId);
+    console.log("post:", props.post);
 
     const [editing, setEditing] = useState<boolean>(false);
     const [editedText, setEditedText] = useState<string>(text);
-
-    const { user } = useContext(AuthContext);
-
-    console.log("user:", user);
 
     const handleTextChande = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEditedText(e.target.value);
     };
 
     const saveEditedPost = async () => {
-        if ( user?.uid === userId ) {
         try {
-            await updateDoc(doc(db, "posts", id), {
+            await updateDoc(doc(db, "posts", postId), {
                 text: editedText,
             });
 
@@ -36,14 +30,13 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
         } catch (error) {
             console.log("投稿の更新中にエラーが発生しました。", error);
         }
-        }
     };
 
     const deletePost = async () => {
-        if ( user?.uid === userId ) {
         try {
+            console.log("post.id:",postId );
             // Firestoreのデータを削除
-            await deleteDoc(doc(db, "posts", id));
+            await deleteDoc(doc(db, "posts", postId));
     
             // 画像が存在する場合、ストレージファイルを削除
             if (imageUrl) {
@@ -55,7 +48,6 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
         } catch (error) {
             console.log("投稿の削除中にエラーが発生しました。", error);
         }
-        }
     };
 
     return(
@@ -66,35 +58,25 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
             className="postImage"
             />}
             {editing ? (
-                <>
-                    {user?.uid === userId ? (
-                        <input
-                            type="text"
-                            value={editedText}
-                            onChange={handleTextChande}
-                            className="postEditText"
-                        />
-                        ):(
-                            <p>{text}</p>
-                    )}
-                </>
+                <input
+                    type="text"
+                    value={editedText}
+                    onChange={handleTextChande}
+                    className="postEditText"
+                />
             ) : (
                 <p>{text}</p>
             )}
             <div className="postActions">
-                { user?.uid === userId && (
+                <button onClick={deletePost}>削除</button>
+                {editing ? (
                     <>
-                        <button onClick={deletePost}>削除</button>
-                        {editing ? (
-                            <>
-                                <button onClick={saveEditedPost}>保存</button>
-                                <button onClick={() => setEditing(false)}>キャンセル</button>
-                            </>
-                        ) : (
-                            <button onClick={() => setEditing(true)}>編集</button>
-
-                        )}
+                        <button onClick={saveEditedPost}>保存</button>
+                        <button onClick={() => setEditing(false)}>キャンセル</button>
                     </>
+                ) : (
+                    <button onClick={() => setEditing(true)}>編集</button>
+
                 )}
             </div>
         </div>

@@ -21,6 +21,7 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
 
     console.log("user:", user);
 
+
     const handleTextChande = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEditedText(e.target.value);
     };

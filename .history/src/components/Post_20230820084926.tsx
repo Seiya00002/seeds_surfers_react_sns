@@ -19,8 +19,6 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
 
     const { user } = useContext(AuthContext);
 
-    console.log("user:", user);
-
     const handleTextChande = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEditedText(e.target.value);
     };
@@ -42,6 +40,7 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
     const deletePost = async () => {
         if ( user?.uid === userId ) {
         try {
+            console.log("post.id:", id );
             // Firestoreのデータを削除
             await deleteDoc(doc(db, "posts", id));
     

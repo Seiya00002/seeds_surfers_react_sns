@@ -12,21 +12,16 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
     const id = post?.id || "";
     const { text, imageUrl, userId } = post;
 
-    console.log("userId:", userId);
-
     const [editing, setEditing] = useState<boolean>(false);
     const [editedText, setEditedText] = useState<string>(text);
 
     const { user } = useContext(AuthContext);
-
-    console.log("user:", user);
 
     const handleTextChande = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEditedText(e.target.value);
     };
 
     const saveEditedPost = async () => {
-        if ( user?.uid === userId ) {
         try {
             await updateDoc(doc(db, "posts", id), {
                 text: editedText,
@@ -36,12 +31,12 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
         } catch (error) {
             console.log("投稿の更新中にエラーが発生しました。", error);
         }
-        }
     };
 
     const deletePost = async () => {
         if ( user?.uid === userId ) {
         try {
+            console.log("post.id:", id );
             // Firestoreのデータを削除
             await deleteDoc(doc(db, "posts", id));
     

@@ -62,6 +62,14 @@ function PostUploader({ setPosts }: PostUploaderProps) {
       setText("");
       setFileUrl("");
       setUploaded(false);
+
+      console.log("New Post Data:", {
+        text: text,
+        imageUrl: fileUrl,
+        timestamp: serverTimestamp(),
+        id: newDocId,
+        userId: user.uid,
+      });
       
       // Post コンポーネントに渡すデータ
       setPosts((prevPosts) => [

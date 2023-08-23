@@ -52,7 +52,6 @@ function PostUploader({ setPosts }: PostUploaderProps) {
       text:text,
       imageUrl:fileUrl,
       timestamp: serverTimestamp(),
-      userId: user.uid,
     })
     .then((docRef)=>{
       console.log("投稿が完了しました！");
@@ -63,14 +62,13 @@ function PostUploader({ setPosts }: PostUploaderProps) {
       setFileUrl("");
       setUploaded(false);
       
-      // Post コンポーネントに渡すデータ
+      // Post コンポーネントに渡すデータに新しいドキュメントIDを追加
       setPosts((prevPosts) => [
         ...prevPosts,
         {
           text: text,
           imageUrl: fileUrl,
           timestamp: serverTimestamp(),
-          userId: user.uid,
           id: newDocId,
         },
       ]);

@@ -1,7 +1,7 @@
 import React, { useState}  from "react";
 import "./PostUploader.css";
 import { Button } from '@mui/material';
-import { db, storage, auth } from "../firebase";
+import { db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -9,11 +9,8 @@ import { addDoc, collection, serverTimestamp} from "firebase/firestore";
 import Post from "./Post";
 import Login from "./Login";
 
-interface PostUploaderProps {
-  setPosts: React.Dispatch<React.SetStateAction<any[]>>;
-}
 
-function PostUploader({ setPosts }: PostUploaderProps) {
+function PostUploader() {
   const [loading, setLoading] = useState<boolean>(false);
   const [isUpLoaded, setUploaded] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
@@ -41,18 +38,10 @@ function PostUploader({ setPosts }: PostUploaderProps) {
   };
 
   const onTextUploadToFirebase = () => {
-    const user = auth.currentUser;
-
-    if(!user) {
-      window.alert("投稿にはログインが必要です。");
-      return;
-    }
-
     addDoc(collection(db, "posts"), {
       text:text,
       imageUrl:fileUrl,
       timestamp: serverTimestamp(),
-      userId: user.uid,
     })
     .then((docRef)=>{
       console.log("投稿が完了しました！");
@@ -63,14 +52,13 @@ function PostUploader({ setPosts }: PostUploaderProps) {
       setFileUrl("");
       setUploaded(false);
       
-      // Post コンポーネントに渡すデータ
+      // Post コンポーネントに渡すデータに新しいドキュメントIDを追加
       setPosts((prevPosts) => [
         ...prevPosts,
         {
           text: text,
           imageUrl: fileUrl,
           timestamp: serverTimestamp(),
-          userId: user.uid,
           id: newDocId,
         },
       ]);
@@ -81,7 +69,6 @@ function PostUploader({ setPosts }: PostUploaderProps) {
       console.error("エラーが発生しました。:",error);
     });
   };
-  
 
   return (
     <>

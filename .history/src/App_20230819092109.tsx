@@ -4,7 +4,6 @@ import { db, storage } from './firebase';
 import { useEffect, useState, useRef } from "react";
 import { collection, query, orderBy, getDocs, QuerySnapshot } from "firebase/firestore";
 import { doc, onSnapshot } from 'firebase/firestore';
-import { AuthProvider } from './AuthContext';
 import Post from './Components/Post';
 import PostUploader from './Components/PostUploader';
 
@@ -30,14 +29,12 @@ function App() {
   console.log("Posts in App:", posts);
 
   return(
-    <AuthProvider>
-      <div className="App">
-        <PostUploader setPosts={setPosts} />
-        {posts.map((post:any) => (
-          <Post key={post.timestamp} post={post} />
-        ))}
-      </div>
-    </AuthProvider>
+    <div className="App">
+      <PostUploader setPosts={setPosts} />
+      {posts.map((post:any) => (
+        <Post key={post.timestamp} post={post} />
+      ))}
+    </div>
   );
 }
 

@@ -48,16 +48,10 @@ function SignInButton() {
 }
 
 function SignOutButton() {
-    const { signOut } = useContext(AuthContext);
-
     return (
         <button 
-            className="signout-button"
-            onClick={ async () => { 
-                await auth.signOut()
-                signOut();
-            }}
-        >
+        className="signout-button"
+        onClick={() => auth.signOut()}>
             <p>サインアウト</p>
         </button>
     );
