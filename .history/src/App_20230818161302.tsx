@@ -4,7 +4,6 @@ import { db, storage } from './firebase';
 import { useEffect, useState, useRef } from "react";
 import { collection, query, orderBy, getDocs, QuerySnapshot } from "firebase/firestore";
 import { doc, onSnapshot } from 'firebase/firestore';
-import { AuthProvider } from './AuthContext';
 import Post from './Components/Post';
 import PostUploader from './Components/PostUploader';
 
@@ -15,9 +14,7 @@ function App() {
     const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
     // リアルタイム表示
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const postsData = querySnapshot.docs.map((doc) => {
-        return { id: doc.id, ...doc.data() };
-      });
+      const postsData = querySnapshot.docs.map((doc) => doc.data());
       setPosts(postsData);
     });
 
@@ -27,17 +24,13 @@ function App() {
     };
   }, []);
 
-  console.log("Posts in App:", posts);
-
   return(
-    <AuthProvider>
-      <div className="App">
-        <PostUploader setPosts={setPosts} />
-        {posts.map((post:any) => (
-          <Post key={post.timestamp} post={post} />
-        ))}
-      </div>
-    </AuthProvider>
+    <div className="App">
+      <PostUploader setPosts={setPosts} />
+      {posts.map((post:any) => (
+        <Post key={post.timestamp} post={post} />
+      ))}
+    </div>
   );
 }
 

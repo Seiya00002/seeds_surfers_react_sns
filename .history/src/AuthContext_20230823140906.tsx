@@ -7,13 +7,11 @@ import { createContext, useState, Dispatch, SetStateAction  } from 'react';
 type AuthContextType = {
     user: User | null;
     setUser: Dispatch<SetStateAction<User | null>>;
-    signOut: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextType>({
     user: null,
-    setUser: () => {},
-    signOut: async () => {}
+    setUser: () => {}
 });
   
 

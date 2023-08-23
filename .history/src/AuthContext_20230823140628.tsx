@@ -7,19 +7,16 @@ import { createContext, useState, Dispatch, SetStateAction  } from 'react';
 type AuthContextType = {
     user: User | null;
     setUser: Dispatch<SetStateAction<User | null>>;
-    signOut: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextType>({
     user: null,
-    setUser: () => {},
-    signOut: async () => {}
+    setUser: () => {}
 });
   
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(() => {
-        // リロード時ローカルストレージに状態一時保存
         const storedUser = localStorage.getItem('user');
         return storedUser ? JSON.parse(storedUser) : null;
     });
@@ -38,7 +35,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     return(
-        <AuthContext.Provider value={{ user, setUser, signOut }}>
+        <AuthContext.Provider value={{ user, setUser }}>
             { children }
         </AuthContext.Provider>
     );

@@ -12,8 +12,7 @@ type AuthContextType = {
 
 export const AuthContext = createContext<AuthContextType>({
     user: null,
-    setUser: () => {},
-    signOut: async () => {}
+    setUser: () => {}
 });
   
 
