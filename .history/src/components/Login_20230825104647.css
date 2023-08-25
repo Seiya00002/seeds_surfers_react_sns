@@ -1,0 +1,54 @@
+.userInfo {
+    margin: 5px 20px;
+    display: flex;
+  }
+  
+  h1 {
+    font-size: 3rem;
+  }
+  
+.userIcon {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
+  
+.signout-button {
+    margin: 10px 10px;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px #626262;
+    cursor: pointer;
+    background-color: #cf9b48;
+    color: white;
+    font-weight: 300;
+    font-size: 5px;
+    width: 80pxpx;
+    height: 30px;
+  }
+
+  .signin-button {
+    margin: 10px 10px 10px 50px;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px #626262;
+    cursor: pointer;
+    background-color: #cf9b48;
+    color: white;
+    font-weight: 300;
+    font-size: 5px;
+    width: 80pxpx;
+    height: 30px;
+  }
+
+  .signout-button p {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .signin-button p {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }

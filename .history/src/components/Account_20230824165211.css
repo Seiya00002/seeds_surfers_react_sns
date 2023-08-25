@@ -1,0 +1,12 @@
+.accountSetting {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.settingButton {
+    text-decoration: none;
+    font-size: large;
+    float: right;
+}
