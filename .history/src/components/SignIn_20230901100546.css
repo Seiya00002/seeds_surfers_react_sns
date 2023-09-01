@@ -1,0 +1,12 @@
+.signin-content {
+    justify-content: center;
+    text-align: center;
+}
+
+.signin-content h2 {
+    margin: 20px;
+}
+
+.user-make {
+    /* display: flex; */
+}
