@@ -1,0 +1,30 @@
+.signin-content {
+    margin: 30px 0;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: none;
+    padding: 10px 36px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px gray;
+    color: gray;
+}
+
+.signin-content h2 {
+    margin: 20px;
+}
+
+.user-make {
+    margin: 20px;
+
+    flex-flow: column;  
+    display: flex;
+    width: 300px;
+}
+
+.signin-method {
+    margin: 5px;
+}

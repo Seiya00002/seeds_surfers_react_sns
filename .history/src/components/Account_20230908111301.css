@@ -1,0 +1,70 @@
+.accountSetting {
+    width: 500px;
+    margin: 30px auto;
+    padding: 15px 35px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: antiquewhite;
+    font-weight: 600;
+}
+
+.accountSetting h2 {
+    margin:15px 0 20px 0;
+    color: gray;
+}
+
+.date {
+    color: gray;
+}
+
+.success-message {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.success-message h2 {
+    width: 400px;
+    color: rgba(0,0,0);
+    background-color: rgba(248, 247, 247, 0.8);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.2);
+    text-align: center;  
+}
+
+.accountpage-button {
+    margin: 10px 15px;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px #626262;
+    cursor: pointer;
+    background-color: #cf9b48;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    width: 80pxpx;
+    height: 30px;
+  }
+
+  .home-button {
+    margin: 10px;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px #626262;
+    cursor: pointer;
+    background-color: #cf9b48;
+    color: black;
+    font-size: 0.9rem;
+    font-weight: 600;    width: 80pxpx;
+    height: 30px;
+}
