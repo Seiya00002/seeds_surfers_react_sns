@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
+.header {
+    height: 70px;
+    background-color: rgba(30, 160, 47, 0.449);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.header h2 {
+
+    padding: 20px;
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.settingButton {
+    width: 35px;
+    height: 35px;
+}
+
+.icon {
+    width: 27px;
+    height: 27px;
+}
