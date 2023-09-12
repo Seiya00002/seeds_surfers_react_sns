@@ -24,7 +24,7 @@ jobs:
 
       - name: Authenticate with Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
-        with: firebaseServiceAccount ${{ secrets.GITHUB_TOKEN }}
+        with: firebaseServiceAccount ${{ secrets.FIREBASESECRET }}
 
       - name: Build and Deploy
         run: |
