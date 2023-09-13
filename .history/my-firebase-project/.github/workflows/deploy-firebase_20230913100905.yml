@@ -29,7 +29,6 @@ jobs:
             firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
             projectId: seeds-surfers-react-sns
             channelId: live
-            
       - name: Build and Deploy
         run: |
           cd seeds_surfers_react_sns
