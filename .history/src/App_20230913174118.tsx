@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import { db } from './firebase';
-import { useEffect, useState } from "react";
-import { collection, query, orderBy } from "firebase/firestore";
+import { db, storage } from './firebase';
+import { useEffect, useState, useRef } from "react";
+import { collection, query, orderBy, getDocs, QuerySnapshot } from "firebase/firestore";
 import { onSnapshot } from 'firebase/firestore';
 import Header from './Header';
 import Post from './Components/Post';
