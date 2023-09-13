@@ -1,8 +1,0 @@
-{
-  "projects": {
-    "default": "seeds-surfers-react-sns",
-    "staging": "seeds-surfers-react-sns"
-  },
-  "targets": {},
-  "etags": {}
-}
