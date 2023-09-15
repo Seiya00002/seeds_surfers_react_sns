@@ -8,14 +8,13 @@
     .postImage {
         width: 90%;
         aspect-ratio: 1/1;
-        height: 90%;
         object-fit: cover;
     }
 }
 
 .postOuterBox {
     width: 500px;
-    margin: 15px 0;
+    margin: 20px 0;
     border: 1px solid #ccc;
     padding: 10px;
 }

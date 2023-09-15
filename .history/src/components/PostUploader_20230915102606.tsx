@@ -96,10 +96,12 @@ function PostUploader({ setPosts }: PostUploaderProps) {
 
                 <form id="post">
                   <label>
-                    <textarea 
+                    <input 
+                      type="textarea"
                       className="post-input"
                       placeholder="報告や疑問を書く..."
-                      maxLength={500}
+                      // size={50}
+                      // maxLength={500}
                       value={text}
                       onChange={e => setText(e.target.value)}
                     />
@@ -132,9 +134,11 @@ function PostUploader({ setPosts }: PostUploaderProps) {
                 </Button>
                 <form id="post">
                   <label>
-                    <textarea 
+                    <input 
+                      type="text"
                       placeholder="報告や疑問を書く..."
-                      className="post-input"
+                      className="textPost"
+                      size={50}
                       maxLength={500}
                       value={text}
                       onChange={e => setText(e.target.value)}

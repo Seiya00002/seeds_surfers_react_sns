@@ -1,29 +1,14 @@
 .postImage {
-    width: 450px;
-    height: 450px;
+    width: 400px;
+    height: 400px;
     object-fit: cover;
-}
-
-@media screen and (max-width:480px) {
-    .postImage {
-        width: 90%;
-        aspect-ratio: 1/1;
-        height: 90%;
-        object-fit: cover;
-    }
 }
 
 .postOuterBox {
     width: 500px;
-    margin: 15px 0;
+    margin: 20px 0;
     border: 1px solid #ccc;
     padding: 10px;
-}
-
-@media screen and (max-width:480px) {
-    .postOuterBox {
-        width: 97%;
-    }
 }
 
 .postText {

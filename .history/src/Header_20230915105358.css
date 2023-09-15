@@ -14,14 +14,14 @@
     padding-top: 8px;
     font-family: 'Merriweather', serif;
     font-weight: 700;
-    font-size: 28px;
+    font-size: 30px;
 }
 
 .header h4 {
     font-family: 'Merriweather', serif;
     font-style: italic;
-    font-size: 15px;
-    padding-top: 3px;
+    font-size: 18px;
+    padding: 3px 0 20px 10px;
 }
 
 .settingButton {
@@ -45,7 +45,7 @@
 @media screen and (max-width:480px) {
     .header h2 {
         font-size: 23px;
-        padding-top: 14px;
+        padding-top: 10px;
     }
     .header h4 {
       font-size: 11px;
