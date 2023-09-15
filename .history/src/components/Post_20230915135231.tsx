@@ -38,7 +38,7 @@ import "./Post.css";
 
 const Post: React.FC<{ post: any }> = ( {post} ) => {
     const id = post?.id || "";
-    const { text, imageUrl, userId, photoURL, displayName } = post;
+    const { timestamp, text, imageUrl, userId, photoURL, displayName } = post;
     
     // const date = timestamp ? (timestamp as Timestamp).toDate() : null;
     // const daysAgo = date ? formatDateToDaysAgo(date) : null;
@@ -120,7 +120,7 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
                         className="edit-button"
                         onClick={deletePost}
                         >
-                            <img src="image/trash-icon.png" className="edit-icon" alt="削除" />
+                            <img src="image/trash-icon.png" className="edit-icon" />
                         </button>
                         {editing ? (
                             <>
@@ -131,7 +131,7 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
                             <button className="edit-button"
                             onClick={() => setEditing(true)}
                             >
-                                <img src="image/pen-icon.png" className="edit-icon" alt="編集" />
+                                <img src="image/pen-icon.png" className="edit-icon"/>
                             </button>
 
                         )}
