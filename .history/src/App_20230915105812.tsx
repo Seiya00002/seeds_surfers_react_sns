@@ -30,7 +30,7 @@ function App() {
   return(
       <div className="App">
         <Header />
-        <p　className='introduce'>植物自慢や、育て方の教え合い♪</p>
+        <p>植物自慢や、育て方の教え合い♪</p>
         <PostUploader setPosts={setPosts} />
         {posts.map((post:any) => (
           <Post key={post.timestamp} post={post} />

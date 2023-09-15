@@ -97,9 +97,11 @@ function PostUploader({ setPosts }: PostUploaderProps) {
                 <form id="post">
                   <label>
                     <textarea 
+                      // type="text"
                       className="post-input"
                       placeholder="報告や疑問を書く..."
-                      maxLength={500}
+                      // size={50}
+                      // maxLength={500}
                       value={text}
                       onChange={e => setText(e.target.value)}
                     />
