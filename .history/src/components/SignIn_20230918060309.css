@@ -46,7 +46,7 @@
 
 .google-signin-method {
     cursor: pointer;
-    /* margin-inline: auto; */
+    margin-inline: auto;
     position: relative;
 }
 
