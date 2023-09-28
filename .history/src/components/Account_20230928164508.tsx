@@ -197,7 +197,7 @@ function Account () {
                     </div>
                 )}
             </div>
-            <a href="https://seeds-surf.com/privacy-policy/" className="privacy-policy">Privacy policy</a>
+                   <a href="https://seeds-surf.com/privacy-policy/" className="privacy-policy">Privacy policy</a>
         </>
     )
 }

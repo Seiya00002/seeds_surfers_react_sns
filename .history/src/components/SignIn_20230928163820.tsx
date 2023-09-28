@@ -21,9 +21,11 @@ function SignIn() {
                 <p>--------------------　OR　--------------------</p>
                 <SignInWithEmailPassword />
             </div>
-            <a href="https://seeds-surf.com/privacy-policy/" className="privacy-policy">
-                Privacy policy
-            </a>
+            <Link to="https://seeds-surf.com/privacy-policy/">
+                <div className="privacy-policy">
+                   Privacy policy
+                </div>
+            </Link>
         </>
     );
 }

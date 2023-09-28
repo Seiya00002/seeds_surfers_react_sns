@@ -101,13 +101,17 @@ margin: 10px auto;
 
 .privacy-policy {
     margin: 0 auto;
-    padding: 10px 0 20px 0;
+    padding-bottom: 20px;
     color: black;
     display: flex;
     justify-content: center;
     text-align: center;
     cursor: pointer;
+}
+
+.privacy-policy p {
     text-decoration: none;
+
 }
 
 @media screen and (max-width: 480px) {
