@@ -1,48 +1,47 @@
 import React from "react";
 import { useState, useContext } from "react";
-import { deleteDoc, doc, updateDoc, Timestamp } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { ref } from "firebase/storage";
 import { deleteObject } from "firebase/storage";
 import { AuthContext } from "../AuthContext";
 import { db, storage } from "../firebase";
 import "./Post.css";
 
-interface PostProps {
-    post: {
-        id: string;
-        text: string;
-        imageUrl: string | null;
-        userId: string;
-        photoURL: string | null;
-        displayName: string | null;
-        timestamp: Timestamp | null;
-    };
-}
+// interface PostProps {
+//     post: {
+//         id: string;
+//         text: string;
+//         imageUrl: string | null;
+//         userId: string;
+//         photoURL: string | null;
+//         displayName: string | null;
+//     };
+// }
 
-const formatDateToDaysAgo = (date: Date | null): string => {
-    if(!date) {
-        return "日付不明";
-    }
+// const formatDateToDaysAgo = (date: Date | null): string => {
+//     if(!date) {
+//         return "日付不明";
+//     }
 
-    const currentDate = new Date();
-    const timeDifference = currentDate.getTime() - date.getTime();
-    const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 *24));
+//     const currentDate = new Date();
+//     const timeDifference = currentDate.getTime() - date.getTime();
+//     const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 *24));
 
-    if(daysAgo === 0) {
-        return "今日";
-    } else if (daysAgo === 1) {
-        return "昨日";
-    } else {
-        return `${daysAgo}日前`;
-    }
-}   
+//     if(daysAgo === 0) {
+//         return "今日";
+//     } else if (daysAgo === 1) {
+//         return "昨日";
+//     } else {
+//         return `${daysAgo}日前`;
+//     }
+// }   数式計算の型指定の問題？
 
 const Post: React.FC<{ post: any }> = ( {post} ) => {
     const id = post?.id || "";
-    const { timestamp, text, imageUrl, userId, photoURL, displayName } = post;
+    const { text, imageUrl, userId, photoURL, displayName } = post;
     
-    const date = timestamp ? new Date(timestamp.seconds * 1000) : null;
-    const daysAgo = date ? formatDateToDaysAgo(date) : null;
+    // const date = timestamp ? (timestamp as Timestamp).toDate() : null;
+    // const daysAgo = date ? formatDateToDaysAgo(date) : null;
 
     const [editing, setEditing] = useState<boolean>(false);
     const [editedText, setEditedText] = useState<string>(text);
@@ -88,7 +87,7 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
 
     return(
         <div className="postOuterBox">
-            <p className="date">{daysAgo}</p>
+            {/* <p className="date">{daysAgo}</p> */}
             <div className="postUserInfo">
                 <img src={photoURL || ''} alt={`${displayName}のプロフィールアイコン`} className="userProfileIcon" />
                 <p className="userName" >{displayName}</p>
