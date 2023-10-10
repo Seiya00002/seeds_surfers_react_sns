@@ -15,7 +15,6 @@ interface PostProps {
         userId: string;
         photoURL: string | null;
         displayName: string | null;
-        timestamp: Timestamp | null;
     };
 }
 
@@ -39,9 +38,9 @@ const formatDateToDaysAgo = (date: Date | null): string => {
 
 const Post: React.FC<{ post: any }> = ( {post} ) => {
     const id = post?.id || "";
-    const { timestamp, text, imageUrl, userId, photoURL, displayName } = post;
+    const { text, imageUrl, userId, photoURL, displayName } = post;
     
-    const date = timestamp ? new Date(timestamp.seconds * 1000) : null;
+    const date = timestamp ? (timestamp as Timestamp).toDate() : null;
     const daysAgo = date ? formatDateToDaysAgo(date) : null;
 
     const [editing, setEditing] = useState<boolean>(false);
@@ -88,7 +87,7 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
 
     return(
         <div className="postOuterBox">
-            <p className="date">{daysAgo}</p>
+            {/* <p className="date">{daysAgo}</p> */}
             <div className="postUserInfo">
                 <img src={photoURL || ''} alt={`${displayName}のプロフィールアイコン`} className="userProfileIcon" />
                 <p className="userName" >{displayName}</p>

@@ -41,7 +41,7 @@ const Post: React.FC<{ post: any }> = ( {post} ) => {
     const id = post?.id || "";
     const { timestamp, text, imageUrl, userId, photoURL, displayName } = post;
     
-    const date = timestamp ? new Date(timestamp.seconds * 1000) : null;
+    const date = timestamp ? (timestamp as Timestamp).toDate() : null;
     const daysAgo = date ? formatDateToDaysAgo(date) : null;
 
     const [editing, setEditing] = useState<boolean>(false);
