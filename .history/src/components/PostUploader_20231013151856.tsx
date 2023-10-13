@@ -108,7 +108,7 @@ function PostUploader({ setPosts }: PostUploaderProps) {
                   </form>
                   <input 
                     type="button" 
-                    className="textUploadInput"
+                    className="postButton"
                     form="post" 
                     value="Post"
                     onClick={onTextUploadToFirebase}
@@ -118,7 +118,7 @@ function PostUploader({ setPosts }: PostUploaderProps) {
             ) : (
               <div className="outerBox">
                 <div className="title">
-                  <Login />
+                　<Login />
                   <h2>今日の調子はどう？</h2>
                   <p>JpegかPngの写真ファイル</p>
                 </div>
