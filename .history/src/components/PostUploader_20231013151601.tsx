@@ -86,14 +86,13 @@ function PostUploader({ setPosts }: PostUploaderProps) {
   return (
     <>
       {loading ?(
-        <h3>画像アップロード中・・・</h3>
+        <h2>画像アップロード中・・・</h2>
       ) : (
         <>
           {isUpLoaded ? (
             <>
               <div className="outerBox">
-                <h3>画像アップロード完了</h3>
-                <p>テキストを入れてPostボタンを押すと投稿が完了します。</p>
+                <h3>画像アップロード完了<br></br>Postボタンを押すと投稿が完了します。</h3>
 
                 <form id="post">
                   <label>
@@ -108,7 +107,7 @@ function PostUploader({ setPosts }: PostUploaderProps) {
                   </form>
                   <input 
                     type="button" 
-                    className="textUploadInput"
+                    className="postButton"
                     form="post" 
                     value="Post"
                     onClick={onTextUploadToFirebase}
@@ -118,7 +117,7 @@ function PostUploader({ setPosts }: PostUploaderProps) {
             ) : (
               <div className="outerBox">
                 <div className="title">
-                  <Login />
+                　<Login />
                   <h2>今日の調子はどう？</h2>
                   <p>JpegかPngの写真ファイル</p>
                 </div>
